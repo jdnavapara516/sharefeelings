@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ShareThought</title>
+
+    <style>
+        body{
+            font-family:Arial;
+            max-width:700px;
+            margin:40px auto;
+        }
+
+        textarea{
+            width:100%;
+            height:100px;
+            padding:10px;
+        }
+
+        button{
+            margin-top:10px;
+            padding:10px 20px;
+        }
+
+        .thought{
+            border:1px solid #ddd;
+            padding:15px;
+            margin-top:15px;
+            border-radius:5px;
+        }
+
+        .date{
+            color:gray;
+            font-size:12px;
+        }
+    </style>
+
+</head>
+<body>
+
+<h1>ShareThought</h1>
+
+<h3>What's on your mind?</h3>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <textarea
+        name="content"
+        placeholder="Write your thought..."
+        required
+    ></textarea>
+
+    <br>
+
+    <button type="submit">
+        Post Thought
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Latest Thoughts</h2>
+
+{% for thought in thoughts %}
+
+<div class="thought">
+
+    <p>{{ thought.content }}</p>
+
+    <div class="date">
+
+        {{ thought.created_at }}
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No thoughts yet.</p>
+
+{% endfor %}
+
+</body>
+</html>
